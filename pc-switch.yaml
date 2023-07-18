@@ -24,7 +24,7 @@ api:
 
 dashboard_import:
   package_import_url: github://OstenTV/pc-switch/pc-switch.yaml@main
-  import_full_config: true
+  import_full_config: false
 
 # Your wifi config
 wifi:
