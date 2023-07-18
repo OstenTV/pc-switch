@@ -8,7 +8,7 @@ esphome:
   project:
     # Fork of ajfriesen.pc-switch
     name: "OstenTV.pc-switch"
-    version: "1.1.0"
+    version: "1.1.1"
 
 
 captive_portal:
