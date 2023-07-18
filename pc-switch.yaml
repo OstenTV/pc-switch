@@ -1,10 +1,8 @@
 substitutions:
-  name: pc-switch-081810
-  friendly_name: PC-Switch 081810
+  name: pc-switch
 
 esphome:
   name: ${name}
-  friendly_name: ${friendly_name}
   name_add_mac_suffix: true
   platform: ESP8266
   board: nodemcuv2
