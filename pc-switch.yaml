@@ -1,10 +1,6 @@
-substitutions:
+esphome:
   name: "pc-switch"
   friendly_name: "PC-Switch"
-
-esphome:
-  name: "${name}"
-  friendly_name: "${friendly_name}"
   name_add_mac_suffix: true
   platform: ESP8266
   board: nodemcuv2
