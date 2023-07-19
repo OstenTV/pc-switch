@@ -3,7 +3,7 @@ substitutions:
   friendly_name: "PC Switch"
   # Fork of ajfriesen.pc-switch
   project_name: "OstenTV.pc-switch"
-  project_version: "1.1.2"
+  project_version: "1.1.3"
 
 esphome:
   platform: ESP8266
@@ -57,13 +57,13 @@ binary_sensor:
   - platform: gpio
     pin: D0
     id: pc_power_sensor
-    name: "${name} Power State"
+    name: "${friendly_name} Power State"
     device_class: power
     icon: "mdi:desktop-classic"
 
 button:
   - platform: template
-    name: "${name} Power Button"
+    name: "${friendly_name} Power Button"
     id: power_button
     icon: "mdi:power-standby"
     on_press:
@@ -71,7 +71,7 @@ button:
         - switch.toggle: power_switch
 
   - platform: template
-    name: "${name} Force Power Off"
+    name: "${friendly_name} Force Power Off"
     id: force_power_off
     icon: "mdi:power-plug-off"
     on_press:
@@ -79,7 +79,7 @@ button:
         - switch.toggle: power_switch_force
 
   - platform: template
-    name: "${name} Reset Button"
+    name: "${friendly_name} Reset Button"
     id: reset_button
     icon: "mdi:restart"
     on_press:
