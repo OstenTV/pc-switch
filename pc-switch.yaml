@@ -31,7 +31,9 @@ dashboard_import:
 
 switch:
   - platform: gpio
-    pin: D6
+    pin: 
+      number: D6
+      allow_other_uses: true
     id: power_switch
     internal: true
     on_turn_on:
@@ -39,7 +41,9 @@ switch:
     - switch.turn_off: power_switch
 
   - platform: gpio
-    pin: D6
+    pin: 
+      number: D6
+      allow_other_uses: true
     id: power_switch_force
     internal: true
     on_turn_on:
