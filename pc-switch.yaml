@@ -3,7 +3,7 @@ substitutions:
   friendly_name: "PC Switch"
   # Fork of ajfriesen.pc-switch
   project_name: "OstenTV.pc-switch"
-  project_version: "1.1.5"
+  project_version: "1.1.6"
 
 esphome:
   platform: ESP8266
@@ -29,33 +29,48 @@ dashboard_import:
   package_import_url: github://OstenTV/pc-switch/pc-switch.yaml@main
   import_full_config: false
 
+sensor:
+  - platform: wifi_signal
+    name: "pc-switch WiFi Signal"
+    update_interval: 60s
+
 switch:
   - platform: gpio
-    pin: 
-      number: D6
-      allow_other_uses: true
+    pin: D6
+    id: power_pin
+    internal: true
+
+  - platform: template
+    name: "Power Switch"
     id: power_switch
     internal: true
-    on_turn_on:
-    - delay: 300ms
-    - switch.turn_off: power_switch
+    turn_on_action:
+      - switch.turn_on: power_pin
+      - delay: 300ms
+      - switch.turn_off: power_pin
 
-  - platform: gpio
-    pin: 
-      number: D6
-      allow_other_uses: true
+  - platform: template
+    name: "Power Switch Force"
     id: power_switch_force
     internal: true
-    on_turn_on:
-    - delay: 5000ms
-    - switch.turn_off: power_switch_force
+    turn_on_action:
+      - switch.turn_on: power_pin
+      - delay: 5000ms
+      - switch.turn_off: power_pin
 
   - platform: gpio
     pin: D7
+    id: reset_pin
+    internal: true
+
+  - platform: template
+    name: "Reset Switch"
     id: reset_switch
-    on_turn_on:
-    - delay: 300ms
-    - switch.turn_off: reset_switch
+    internal: true
+    turn_on_action:
+      - switch.turn_on: reset_pin
+      - delay: 300ms
+      - switch.turn_off: reset_pin
 
 binary_sensor:
   - platform: gpio
