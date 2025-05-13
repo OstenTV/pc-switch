@@ -1,0 +1,191 @@
+# These substitutions allow the end user to override certain values
+substitutions:
+  devicename: pokypow
+  upper_devicename: PokyPow
+
+esphome:
+  name: "${devicename}"
+  friendly_name: PokyPow
+  # Automatically add the mac address to the name
+  # so you can use a single firmware for all devices
+  name_add_mac_suffix: true
+
+  # Green light after boot
+  on_boot:
+    priority: -100  # Lower priority to ensure it runs after boot is complete
+    then:
+      - light.turn_on:
+          id: led_strip
+          red: 0
+          green: 100%
+          blue: 0
+          brightness: 50%
+
+esp32:
+  board: esp32-c3-devkitm-1
+  flash_size: 4MB
+
+# Enable Home Assistant API
+api:
+  # Blue light after connected to Home Assistant
+  on_client_connected:
+    then:
+      - light.turn_on:
+          id: led_strip
+          red: 0
+          green: 0
+          blue: 100%
+          brightness: 50%
+  on_client_disconnected:
+    then:
+      - light.turn_on:
+          id: led_strip
+          red: 100%
+          green: 100%
+          blue: 0
+          brightness: 50%
+
+# OTA is required for Over-the-Air updating
+ota:
+  - platform: esphome
+
+# Enable WiFi provisioning via USB/Serial after flashing
+# Logger needs to be set to uart0 for this to work
+improv_serial:
+
+# To be able to get logs from the device via serial and api.
+logger:
+  # Change to the urat controler on board to make improve serial work for WiFi provisioning
+  hardware_uart: uart0
+
+# Sets up Bluetooth LE (Only on ESP32) to allow the user
+# to provision wifi credentials to the device.
+esp32_improv:
+  authorizer: none
+
+wifi:
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "PokyPow Setup"
+
+# In combination with the `ap` this allows the user
+# to provision wifi credentials to the device.
+captive_portal:
+
+# 
+web_server:
+  port: 80
+
+###
+###  LED, Switchtes, etc.
+###
+
+light:
+  - platform: neopixelbus
+    type: GRBW
+    variant: SK6812
+    pin: GPIO5
+    id: led_strip
+    num_leds: 1
+    name: "LED Strip"
+    effects:
+      - addressable_rainbow:
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 2s
+
+
+switch:
+
+  - platform: factory_reset
+    name: Restart with Factory Default Settings
+  
+  - platform: gpio
+    pin: 
+      number: GPIO7
+      inverted: true
+      mode:
+        output: true
+        pulldown: true
+    id: power_pin
+    internal: true
+
+  - platform: gpio
+    pin: 
+      number: GPIO6
+      inverted: true
+      mode:
+        output: true
+        pulldown: true
+    id: reset_pin
+    internal: true
+
+  - platform: template
+    name: "Power Switch"
+    id: power_switch
+    internal: true
+    turn_on_action:
+      - switch.turn_on: power_pin
+      - delay: 2000ms
+      - switch.turn_off: power_pin
+
+  - platform: template
+    name: "Power Switch Force"
+    id: power_switch_force
+    internal: true
+    turn_on_action:
+      - switch.turn_on: power_pin
+      - delay: 10000ms
+      - switch.turn_off: power_pin
+
+  - platform: template
+    name: "Reset Switch"
+    id: reset_switch
+    internal: true
+    turn_on_action:
+      - switch.turn_on: reset_pin
+      - delay: 1000ms
+      - switch.turn_off: reset_pin
+
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO04
+      mode:
+        input: true
+        pullup: true
+      inverted: false
+    id: pc_power_sensor
+    name: "Power State"
+    device_class: running
+    icon: "mdi:desktop-classic"
+
+button:
+  - platform: template
+    name: "Power Button"
+    id: power_button
+    icon: "mdi:power-standby"
+    on_press:
+      then:
+        - switch.toggle: power_switch
+
+  - platform: template
+    name: "Force Power Off"
+    id: force_power_off
+    icon: "mdi:power-plug-off"
+    on_press:
+      then:
+        - switch.toggle: power_switch_force
+        - delay: 1000ms
+        - switch.turn_off: power_switch_force
+
+  - platform: template
+    name: "Reset Button"
+    id: reset_button
+    icon: "mdi:restart"
+    on_press:
+      then:
+        - switch.toggle: reset_pin

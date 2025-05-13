@@ -1,0 +1,88 @@
+site_name: PokyPow
+site_url: https://docs.pokypow.com
+repo_url: https://github.com/ajfriesen/pokypow
+repo_name: ajfriesen/pokypow
+
+site_author: Andrej Friesen
+site_description: >-
+  PokyPow is a board to power on/off, reset and monitor your PC/server via Home Assistant.
+  It build with ESPHome and does not need any cloud connectivity.
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - getting-started/flashing.md
+      - getting-started/connecting-pc.md
+      - getting-started/usb-always-on.md
+      - getting-started/home-assistant.md
+      - getting-started/webinterface.md
+  - Advanced:
+      - advanced/esphome-builder.md
+      - advanced/3d-printed-cases.md
+      - advanced/no-home-assistant.md
+  - Use Cases:
+    - use-cases.md
+  - About:
+      - about.md
+
+plugins:
+  - search
+  - awesome-pages
+
+theme:
+  name: material
+  icon:
+    logo: material/power
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+
+# Color scheme
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+# Extra customization
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ajfriesen
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/mr_ajfriesen
+
+
+
+# Extensions for enhanced markdown
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/chart.js
+  - js/umami.js

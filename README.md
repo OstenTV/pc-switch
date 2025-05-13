@@ -1,12 +1,23 @@
-# pc-switch
+# PokyPow
+
+![GitHub Repo stars](https://img.shields.io/github/stars/ajfriesen/pokypow)
+
+![Website](https://img.shields.io/website?url=https%3A%2F%2Fdocs.pokypow.com)
+
 
 Remote shutdown and start you PC/server with Home Assistant.
 
-Powered by ESPHome. 
+> [!NOTE]  
+> The [CrowdSupply campaign for PokyPow launch site](https://www.crowdsupply.com/ajfriesen/pokypow) is live!
+> We need 200 subscribers in order to go to the next steps.
+> Subscribe and make it real!
 
-![Home Assisant Panel](images/pc-switch-home-assistant-gui.png)
+Powered by ESPHome.
 
-Just connect your power, reset and power led front panel connector to appropriate pin pairs, power the ESP8266 and you can turn on and off your PC via Home Assistant.
+![Home Assistant Panel](images/pokypow-home-assistant-gui.png)
+
+Just connect your power, reset and power led front panel connector to appropriate pin pairs, power the PokyPow via USB-C or an internal USB2.0 header. 
+Now you can turn on/off your PC and check if it is running via Home Assistant.
 
 ## Use cases
 
@@ -16,14 +27,14 @@ Just connect your power, reset and power led front panel connector to appropriat
 - No addons with admin access (password) to your Windows PC
 - Add voice commands via Home Assistant to Google Assistant
 
-![Version 1.0 assembled](images/v1.0-assembled.jpg)
+![Full Kit](images/pokypow-kit-01.jpeg)
 
-![PCB Version 1.0](images/v1.0.jpg)
+![Front and Back](images/pokypow-pcb-front-back-01.jpeg)
 
-![Prototype](images/prototype.jpg)
+![In Hand](images/pokypow-pcb-scale-02.jpeg)
 
 # Project Documentation
 
-You can find all product documentation, related blog post on my dedicated [pc-switch website](https://www.ajfriesen.com/pc-switch/).
+You can find all product documentation, related blog post on my dedicated [PokyPow Documentation](https://docs.pokypow.com).
 
 
